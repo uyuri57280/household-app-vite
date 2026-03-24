@@ -54,34 +54,18 @@ const Home = () =>
 
     const onCloseForm = () => {
       setSelectedTransaction(null);
-      if (isMobile) {
-        setIsDialogOpen(!isDialogOpen);
-      } else {
-        setIsEntryDrawerOpen(!isEntryDrawerOpen);
-      }
+      setIsDialogOpen(!isDialogOpen);
     };
 
     // フォームの開閉処理
     const handleAddTransactionForm = () => {
-      if (isMobile) {
-        setIsDialogOpen(true);
-      } else {
-        if (selectedTransaction) {
-          setSelectedTransaction(null);
-        } else {
-          setIsEntryDrawerOpen(!isEntryDrawerOpen);
-        }
-      }
+      setIsDialogOpen(true);
     };
 
     // 取引を選択した時の処理
     const handleSelectTransaction = (transaction: Transaction) => {
       setSelectedTransaction(transaction);
-      if (isMobile) {
-        setIsDialogOpen(true);
-      } else {
-        setIsEntryDrawerOpen(true);
-      }
+      setIsDialogOpen(true);
     };
 
     // モバイルドロワーを閉じる処理

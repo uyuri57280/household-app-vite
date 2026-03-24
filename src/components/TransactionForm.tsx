@@ -10,6 +10,7 @@ import {
   InputLabel,
   ListItemIcon,
   MenuItem,
+  Modal,
   Select,
   Stack,
   TextField,
@@ -39,19 +40,10 @@ interface TransactionFormProps {
   isEntryDrawerOpen: boolean;
   onCloseForm: () => void;
   currentDay: string;
-  // onSaveTransaction: (transaction: schema) => Promise<void>;
   selectedTransaction: Transaction | null;
-  // onDeleteTransaction: (
-  //   transactionIds: string | readonly string[],
-  // ) => Promise<void>;
   setSelectedTransaction: React.Dispatch<
     React.SetStateAction<Transaction | null>
   >;
-  // onUpdateTransaction: (
-  //   transaction: schema,
-  //   transactionId: string,
-  // ) => Promise<void>;
-  // isMobile: boolean;
   isDialogOpen: boolean;
   setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -118,7 +110,6 @@ const TransactionForm = ({
     },
     resolver: zodResolver(transactionSchema),
   });
-  console.log(errors);
 
   const incomeExpenseToggle = (type: IncomeExpense) => {
     setValue("type", type);
@@ -145,9 +136,9 @@ const TransactionForm = ({
       onUpdateTransaction(data, selectedTransaction.id)
         .then(() => {
           setSelectedTransaction(null);
-          if (isMobile) {
-            setIsDialogOpen(false);
-          }
+          // if (isMobile) {
+          setIsDialogOpen(false);
+          // }
         })
         .catch((error) => {
           console.error(error);
@@ -204,9 +195,9 @@ const TransactionForm = ({
     if (selectedTransaction) {
       onDeleteTransaction(selectedTransaction.id);
       setSelectedTransaction(null);
-      if (isMobile) {
-        setIsDialogOpen(false);
-      }
+      // if (isMobile) {
+      setIsDialogOpen(false);
+      // }
     }
   };
 
@@ -355,38 +346,9 @@ const TransactionForm = ({
 
   return (
     <>
-      {isMobile ? (
-        <Dialog
-          open={isDialogOpen}
-          onClose={onCloseForm}
-          fullWidth
-          maxWidth="sm"
-        >
-          <DialogContent>{formContent}</DialogContent>
-        </Dialog>
-      ) : (
-        <Box
-          sx={{
-            position: "fixed",
-            top: 64,
-            right: isEntryDrawerOpen ? formWidth : "-2%", // フォームの位置を調整
-            width: formWidth,
-            height: "100%",
-            bgcolor: "background.paper",
-            zIndex: (theme) => theme.zIndex.drawer - 1,
-            transition: (theme) =>
-              theme.transitions.create("right", {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.enteringScreen,
-              }),
-            p: 2, // 内部の余白
-            boxSizing: "border-box", // ボーダーとパディングをwidthに含める
-            boxShadow: "0px 0px 15px -5px #777777",
-          }}
-        >
-          {formContent}
-        </Box>
-      )}
+      <Dialog open={isDialogOpen} onClose={onCloseForm} fullWidth maxWidth="sm">
+        <DialogContent>{formContent}</DialogContent>
+      </Dialog>
     </>
   );
 };

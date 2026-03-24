@@ -221,7 +221,6 @@ export default function TransactionTable() {
   }, [page, rowsPerPage, monthlyTransactions]);
 
   const { income, expense, balance } = financeCalculations(monthlyTransactions);
-  console.log("income, expense, balance", income, expense, balance);
 
   return (
     <Box sx={{ width: "100%" }}>

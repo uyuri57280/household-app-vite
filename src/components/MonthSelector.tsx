@@ -24,7 +24,6 @@ const MonthSelector = () =>
       if (newDate) {
         setCurrentMonth(newDate);
       }
-      console.log("newDate", newDate);
     };
 
     // 先月ボタンを押した時の処理
