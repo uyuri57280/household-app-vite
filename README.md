@@ -1,46 +1,55 @@
-# Getting Started with Create React App
+# 家計簿アプリ（Udemy 教材ベース）
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+本リポジトリは Udemy の家計簿アプリ教材をもとに、**Vite**・**React**・**TypeScript**・**MUI v7**・**React Router v7**・**Firebase（Firestore）** で構築した Web アプリです。
 
-## Available Scripts
+ホームではカレンダーで月を切り替えたり日付を選んだりしながら、その日の取引を一覧・登録・編集・削除できます。レポート画面では Chart.js を用いて収支をグラフ表示します。共通レイアウトは AppBar とサイドバーから「ホーム」「レポート」へ遷移し、テーマでは収入・支出・残高を色分けするパレットを定義しています。
 
-In the project directory, you can run:
+アプリ全体の状態は React Context で共有し、フォームは React Hook Form と Zod、単体・結合テストは Vitest、E2E は Playwright を利用しています。本番公開は Firebase Hosting を想定しています。
 
-### `npm start`
+![説明](./docs/calender-image.png)
+![説明](./docs/graph-image.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 必要な環境
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- [Node.js](https://nodejs.org/)（LTS 推奨）
 
-### `npm test`
+## セットアップ
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+プロジェクトのルートで依存関係をインストールします。
+
+```bash
+npm install
+```
+
+## よく使うコマンド
+
+プロジェクトのディレクトリで次を実行できます。
+
+### `npm run dev`
+
+開発サーバーを起動します。ブラウザで [http://localhost:5173](http://localhost:5173) を開いて確認してください（Vite のデフォルトポート）。
+
+ファイルを保存するとホットリロードされます。
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+本番用にビルドし、成果物は `dist` フォルダに出力されます。
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm run preview`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+ビルド結果をローカルでプレビューします。先に `npm run build` を実行してください。
 
-### `npm run eject`
+### `npm test`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+[Vitest](https://vitest.dev/) でテストを実行します。テスト方針のメモは [`docs/testing.md`](docs/testing.md) を参照してください。
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## デプロイ（Firebase Hosting）
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+`firebase.json` で `public` が `dist` に設定されている場合の例です。
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+npm run build
+firebase deploy --only hosting
+```
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Firebase CLI のログインやプロジェクト選択（`firebase use` など）は事前に済ませてください。
